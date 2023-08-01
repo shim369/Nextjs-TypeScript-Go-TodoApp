@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import styles from "@/styles/Home.module.css"
 
 interface Todo {
   id: string;
@@ -50,18 +51,30 @@ export default function Home() {
     }
   
     return (
-      <div>
-        <input type='text' name='title' value={newTodo.title} onChange={handleChange} placeholder='Title' />
-        <input type='text' name='url' value={newTodo.url} onChange={handleChange} placeholder='URL' />
-        <input type='date' name='dueDate' value={newTodo.dueDate} onChange={handleChange} placeholder='Due Date' />
-        <button onClick={createTodo}>Add Todo</button>
-        {todos && todos.map(todo => (
-          <div key={todo.id}>
-            <h3>{todo.title}</h3>
-            <a href={todo.url}>{todo.url}</a>
-            <p>Due: {todo.dueDate}</p>
+      <>
+      <header>
+        <h1>Todo List</h1>
+      </header>
+      <div className={styles.container}>
+        <div className={styles.addBox}>
+          <input type='text' name='title' value={newTodo.title} onChange={handleChange} placeholder='Title' />
+          <input type='text' name='url' value={newTodo.url} onChange={handleChange} placeholder='URL' />
+          <input type='date' name='dueDate' value={newTodo.dueDate} onChange={handleChange} placeholder='Due Date' />
+          <button onClick={createTodo}>Add Todo</button>
+        </div>
+        <div className={styles.viewBox}>
+          <div className={styles.viewWrapper}>
+            {todos && todos.map(todo => (
+              <div key={todo.id} className={styles.viewInner}>
+                <div className={styles.viewItems}>
+                  <h3><a href={todo.url}>{todo.title}</a></h3>
+                  <p>Due: {todo.dueDate}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
+    </>
     )
 }

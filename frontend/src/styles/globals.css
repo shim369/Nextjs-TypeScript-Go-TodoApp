@@ -3,3 +3,62 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+html {
+    background: #564747;
+}
+
+body {
+    background-image: radial-gradient(circle at center center, transparent,rgb(33,33,33)),repeating-linear-gradient(135deg, rgb(33,33,33) 0px, rgb(33,33,33) 2px,transparent 2px, transparent 10px,rgb(33,33,33) 10px, rgb(33,33,33) 11px,transparent 11px, transparent 21px),repeating-linear-gradient(45deg, rgb(47,47,47) 0px, rgb(47,47,47) 4px,transparent 4px, transparent 8px),linear-gradient(90deg, rgb(33,33,33),rgb(33,33,33));
+}
+
+header {
+    width: 100%;
+    padding: 10px;
+}
+
+h1, p, a {
+    color: #fff; 
+}
+
+h2, h3 {
+    margin: 30px 0;
+    color: #fff;
+}
+
+h2 {
+    text-align: center;
+}
+
+label {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+input {
+    margin-bottom: 20px;
+    color: #564747;
+    background: #fff;
+    font-size: 15px;
+    transition: all .3s;
+    padding: 13px;
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+button {
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 10px 20px;
+    margin: 20px 5px 0;
+    display: inline-block;
+    transition: all .5s ease;
+    background: transparent;
+    cursor: pointer;
+}
+
+button:hover {
+    border: 1px solid transparent;
+}

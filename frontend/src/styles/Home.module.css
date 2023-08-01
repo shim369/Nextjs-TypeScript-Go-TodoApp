@@ -1,0 +1,68 @@
+.container, .editBox, .addBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.container {
+    min-height: 100vh;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #ffffff52;
+    padding: 20px;
+    width: 100%;
+}
+
+.formInner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* justify-content: space-around;/ */
+}
+
+.formInner div {
+    width: 100%;
+}
+
+.editInner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.editInner div {
+    width: 100%;
+}
+
+.viewBox {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.viewWrapper {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.viewInner {
+    width: 30%;
+    background: #ffffff52;
+    padding: 20px;
+    margin: 0 1.5% 20px;
+}
+
+.viewItems {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
