@@ -11,8 +11,8 @@ interface Todo {
 
 export default function Home() {
     const [todos, setTodos] = useState<Todo[]>([]);
-    const [newTodo, setNewTodo] = useState({title: '', url: '', dueDate: ''});
-    const [editing, setEditing] = useState(false);
+    const [newTodo, setNewTodo] = useState<{title: string; url: string; dueDate: string}>({title: '', url: '', dueDate: ''});
+    const [editing, setEditing] = useState<boolean>(false);
     const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
 
     useEffect(() => {
@@ -35,32 +35,43 @@ export default function Home() {
 
   
 
-    const handleChange = (e: { target: { name: any; value: any; }; }) => {
-      setNewTodo(prev => ({...prev, [e.target.name]: e.target.value}))
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setNewTodo(prev => ({...prev, [e.target.name]: e.target.value}));
     }
 
     const createTodo = async () => {
-      const res = await fetch('http://localhost:8080/todos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newTodo), // id property removed
-      })
-      const todo: Todo = await res.json()
-      setTodos((prevTodos) => [...prevTodos, todo]);
-      setNewTodo({title: '', url: '', dueDate: ''});
+      try {
+        const res = await fetch('http://localhost:8080/todos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newTodo),
+        });
+    
+        if (!res.ok) {
+          console.log('HTTP error', res.status);
+          return;
+        }
+    
+        const todo: Todo = await res.json();
+        setTodos((prevTodos) => [...(prevTodos || []), todo]);
+        setNewTodo({ title: '', url: '', dueDate: '' });
+      } catch (error) {
+        console.error('Create Todo error: ', error);
+      }
     }
+      
 
     const updateTodo = async (id: number) => {
-      const response = await axios.put(`http://localhost:8080/todos/${id}`, currentTodo); // endpoint corrected
+      const response = await axios.put(`http://localhost:8080/todos/${id}`, currentTodo);
       setTodos(todos.map((todo) => (todo.id === id ? response.data : todo)));
       setEditing(false);
       setCurrentTodo(null);
     };
   
     const deleteTodo = async (id: number) => {
-      await axios.delete(`http://localhost:8080/todos/${id}`); // endpoint corrected
+      await axios.delete(`http://localhost:8080/todos/${id}`);
       setTodos(todos.filter((todo) => todo.id !== id));
     };
 
@@ -146,16 +157,16 @@ export default function Home() {
         <div className={styles.viewBox}>
           <h2>View Todos</h2>
           <div className={styles.viewWrapper}>
-            {todos && todos.map(todo => (
-              <div key={todo.id} className={styles.viewInner}>
-                <div className={styles.viewItems}>
-                  <h3><a href={todo.url}>{todo.title}</a></h3>
-                  <p>Due: {todo.dueDate}</p>
-                </div>
-                <button onClick={() => editTodo(todo)}>Edit</button>
-                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          {todos && todos.map(todo => (
+            <div key={todo?.id} className={styles.viewInner}>
+              <div className={styles.viewItems}>
+                <h3><a href={todo?.url}>{todo?.title}</a></h3>
+                <p>Due: {todo?.dueDate}</p>
               </div>
-            ))}
+              <button onClick={() => editTodo(todo)}>Edit</button>
+              <button onClick={() => deleteTodo(todo?.id)}>Delete</button>
+            </div>
+          ))}
           </div>
         </div>
       </div>
